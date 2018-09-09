@@ -5,7 +5,7 @@ const path =require('path');
 const http = require('http');
 // API file for interacting with MongoDB
 const api = require('./src/server/routes/api');
-
+const cors = require('cors');
 // Parsers
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -18,10 +18,16 @@ app.use(express.static('./dist/hanonsystem-ui-new'));
 app.use('/api', api);
 
 // Send all other requests to the Angular app
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/dist/hanonsystem-ui-new/index.html'));
 });
 
+var corsOptions = {
+    origin: 'http://example.com',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
+  }
+  app.use(cors(corsOptions));
+  
 //Set Port
 const port = process.env.PORT || 8080;
 app.set('port', port);
