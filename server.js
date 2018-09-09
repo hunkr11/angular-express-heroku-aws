@@ -18,7 +18,7 @@ app.use(express.static('./dist/hanonsystem-ui-new'));
 app.use('/api', api);
 
 // Send all other requests to the Angular app
-app.get('/*', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/dist/hanonsystem-ui-new/index.html'));
 });
 
